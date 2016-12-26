@@ -1,0 +1,12 @@
+.site {
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  min-height: 100vh;
+  background: #ccc;
+  font-family: 'Open Sans', sans-serif;
+
+	.gm-style-iw + div {display: none;}
+
+	.gm-style-iw> div {margin-left: 10px;}
+}

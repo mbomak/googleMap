@@ -1,0 +1,45 @@
+[
+	{
+		"group":"group1",
+		"latLng":[
+			{"lat":47.99735194,"lng":33.49195272},
+			{"lat":48.00110033,"lng":33.48206341}
+		],
+		"infoContent":[
+			"<div class=\"cont\"><img class=\"cont__img\" src=\"img/cont.jpg\"><p class=\"contTxt\">My place</p></div>",
+			"<div class=\"cont\"><img class=\"cont__img\" src=\"img/cont.jpg\"><p class=\"contTxt\">My place</p></div>"
+		],
+		"polygon":[
+							{"lat":47.99736720,"lng":33.48059893},
+							{"lat":48.00210536,"lng":33.48173618},
+							{"lat":48.00164592,"lng":33.48592043},
+							{"lat":48.00194025,"lng":33.49009931},
+							{"lat":48.00584533,"lng":33.49479318},
+							{"lat":48.00491215,"lng":33.49880576},
+							{"lat":47.99388509,"lng":33.49125266},
+							{"lat":47.99665644,"lng":33.48556638}
+						 ],
+		"polygonInfo":"<div class=\"polygon-info\">District #1<div/>"
+	},
+	{
+		"group":"group2",
+		"latLng":[
+			{"lat":47.90984131,"lng":33.39387506},
+			{"lat":47.90902146,"lng":33.39278877}
+		],
+		"infoContent":[
+			"<div class=\"cont\"><img class=\"cont__img\" src=\"img/cont.jpg\"><p class=\"contTxt\">My place</p></div>",
+			"<div class=\"cont\"><img class=\"cont__img\" src=\"img/cont.jpg\"><p class=\"contTxt\">My place</p></div>"
+		],
+		"polygon":[
+								{"lat":47.91034831,"lng":33.39250177},
+								{"lat":47.91021886,"lng":33.39215845},
+								{"lat":47.90992041,"lng":33.39190632},
+								{"lat":47.90867986,"lng":33.39221209},
+								{"lat":47.90881291,"lng":33.39378387},
+								{"lat":47.90862233,"lng":33.39525908},
+								{"lat":47.91007143,"lng":33.39562386}
+						  ],
+		"polygonInfo":"<div class=\"polygon-info\">District #2<div/>"
+	}
+]

@@ -1,0 +1,12 @@
+.map-wrap {
+	overflow: hidden;
+	position: relative;
+	width: 800px;
+	height: 500px;
+	margin: 50px auto 0;
+}
+.map {
+	width: 100%;
+	height: 100%;
+	border: 2px solid rgba(255,0,0,0.3);
+}

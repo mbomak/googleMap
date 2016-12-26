@@ -1,0 +1,19 @@
+.btn {
+	position: absolute;
+	right: 30px;
+	width: 100px;
+	height: 35px;
+	padding: 0;
+	border: none;
+	border-radius: 3px;
+	background: red;
+	color: #fff;
+	font-weight: 600;
+	text-transform: uppercase;
+	z-index: 100000;
+	transition: box-shadow 0.3s;
+
+	&:hover {
+		box-shadow: 0 0 10px rgba(0,0,0,0.6);
+	}
+}
