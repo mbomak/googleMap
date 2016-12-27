@@ -17,6 +17,7 @@
     //private properties
     var _self = this,
         _mapContainer = obj,
+        _mapWrap = _mapContainer.parent(),
         _controls = $( '.controls' ),
         _map,
         _request = new XMLHttpRequest(),
@@ -47,7 +48,6 @@
       });
 
     },
-
     _initMap = function (data) {
 
       var dataAttrCenterMap = _mapContainer.attr( 'data-center-map' ),
@@ -124,60 +124,15 @@
               fillColor: '#FF0000',
               fillOpacity: 0.35
             }),
-            polygonInfo = new google.maps.InfoWindow({
+            polygonInfo = $( data[i].polygonInfo );
 
-              content: data[i].polygonInfo
-
-            }); 
-
-        var polygonCenter = function ( poly  ) {
-
-          var lowx,
-              highx,
-              lowy,
-              highy,
-              center_x,
-              center_y,
-              lats = [],
-              lngs = [],
-              vertices = poly.getPath();
-
-          for ( var i=0; i < vertices.length; i++ ) {
-
-            lngs.push(vertices.getAt(i).lng());
-
-            lats.push(vertices.getAt(i).lat());
-
-          }
-
-          lats.sort();
-
-          lngs.sort();
-
-          lowx = lats[0];
-
-          highx = lats[vertices.length - 1];
-
-          lowy = lngs[0];
-
-          highy = lngs[vertices.length - 1];
-
-          center_x = lowx + ((highx-lowx) / 2);
-
-          center_y = lowy + ((highy - lowy) / 2);
-
-          return ({lat:center_x, lng:center_y});
-
-        },
-        addListenersOnPolygon = function( polygon, infoWindow ) {
+        var addListenersOnPolygon = function( polygon, infoWindow ) {
 
           polygon.addListener( 'mouseover', function(){
 
             this.setOptions({fillColor: '#00FF00'});
-
-            infoWindow.setPosition( polygonCenter(this) );
-                 
-            infoWindow.open( _map );
+                             
+            infoWindow.show();
 
           }); 
 
@@ -185,15 +140,31 @@
 
             this.setOptions({fillColor: '#FF0000'});
 
-            infoWindow.close();
+            infoWindow.hide();
 
           }); 
 
+        },
+        movePolygonInfo = function ( infoWindow ) {
+
+          _mapWrap.on( 'mousemove', function ( e ) {
+
+            infoWindow.css({
+              'top':e.pageY-60,
+              'left':e.pageX-30
+              });
+
+          } );
+
         };
+
+        _mapWrap.append( polygonInfo );
 
         polygonGroup.setMap( _map );
 
         addListenersOnPolygon( polygonGroup, polygonInfo );
+
+        movePolygonInfo( polygonInfo );
 
       },
       addMarkers = function () {
@@ -215,9 +186,9 @@
           boundsTmp.extend( marker.getPosition() );
 
           var infoWindow = new google.maps.InfoWindow({
-
+  
             content: data[i].infoContent[k]
-
+  
           });
 
           marker.addListener( 'click', function() {
@@ -236,7 +207,7 @@
 
       };   
 
-      for (var i = 0; i < data.length; i++ ) {   
+      for ( var i = 0; i < data.length; i++ ) {   
 
         var boundsTmp = new google.maps.LatLngBounds(); 
         
@@ -245,7 +216,7 @@
         bounds.push( boundsTmp );
 
         addPolygons();
-            
+
       }
 
     },
@@ -321,7 +292,7 @@
       } );
 
     };
- 
+  
     _constructor ();
   
   };

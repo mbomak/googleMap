@@ -1,7 +1,9 @@
 .polygon-info {
+	position: absolute;top: 0;display: none;
 	height: 25px;
 	padding: 5px 5px;
 	font-size: 18px;
 	font-weight: 600;
 	text-align: center;
+	z-index: 100000;
 }
