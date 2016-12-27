@@ -22,7 +22,8 @@
         _map,
         _request = new XMLHttpRequest(),
         _btn = '.btn',
-        _groupValue = 0;
+        _groupValue = 0,
+        _site = $('.site');
  
     //private methods
     var _constructor = function () {
@@ -150,15 +151,15 @@
           _mapWrap.on( 'mousemove', function ( e ) {
 
             infoWindow.css({
-              'top':e.pageY-60,
-              'left':e.pageX-30
+              'top':e.pageY+10,
+              'left':e.pageX+20
               });
 
           } );
 
         };
 
-        _mapWrap.append( polygonInfo );
+        _site.append( polygonInfo );
 
         polygonGroup.setMap( _map );
 
