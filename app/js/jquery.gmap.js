@@ -17,8 +17,8 @@
     //private properties
     var _self = this,
         _mapContainer = obj,
-        _mapWrap = _mapContainer.parent(),
         _controls = $( '.controls' ),
+        _buttons = _controls.children(),
         _map,
         _request = new XMLHttpRequest();
  
@@ -66,7 +66,11 @@
     },
     _initMap = function ( data, userLocation ) {
 
-      var mapOption = {};
+      var mapOption = {},
+          finishPointLocation = data[0].latLng,
+          directionsService,
+          directionsDisplay,
+          markers= [];
 
         mapOption = {
           center: userLocation,
@@ -82,8 +86,80 @@
 
       _map = new google.maps.Map( _mapContainer[0], mapOption );
 
+      _initMarkers( data,userLocation,finishPointLocation,markers );
+
+      directionsService = new google.maps.DirectionsService;
+
+      directionsDisplay = new google.maps.DirectionsRenderer({
+        map: _map
+      })
+
+      _calculateDisplayRoute( directionsService,directionsDisplay,userLocation,finishPointLocation );
+
+      _addEvents();
+
+    },
+    _initMarkers = function( data,userLocation,finishPointLocation,markers ) {
+
+      var markerStart = new google.maps.Marker({
+            position: userLocation,
+            title: 'Start point',
+            label: 'S',
+            map: _map
+          }),
+          markerFinish = new google.maps.Marker({
+            position: finishPointLocation,
+            title: "Finish point",
+            label: "F",
+            map: _map
+          }); 
+
+      markers.push( markerStart,markerFinish ); 
+
+    },
+    _calculateDisplayRoute = function ( 
+                              directionsService,
+                              directionsDisplay,
+                              userLocation,
+                              finishPointLocation ) {
+
+      directionsService.route({
+
+        origin: userLocation,
+        destination: finishPointLocation,
+        travelMode: google.maps.TravelMode.DRIVING
+
+      }, function (response,status ) {
+
+        if (status == google.maps.DirectionsStatus.OK) {
+
+          directionsDisplay.setDirections( response );
+
+        } else {
+
+          console.log( 'Directions request failed due to ' + status );
+
+        }
+
+      });
+
+    },
+    _addEvents = function () {
+
+      _buttons.on( 'click', function(){
+
+        var button = $( this );
+
+        if ( button.hasClass('controls__car') ) {
+
+          
+          
+        }
+
+      } );
+
     };
-  
+
     _constructor();
   
   };

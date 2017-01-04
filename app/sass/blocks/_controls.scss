@@ -20,8 +20,8 @@
 			margin-right: 0;
 		}
 
-		&:hover {
-			box-shadow: 0 0 10px rgba(0,0,0,.5);
+		&:hover,&:focus {
+			box-shadow: 0 0 15px rgba(0,0,0,.7);
 		}
 	}
 

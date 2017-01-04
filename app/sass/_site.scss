@@ -6,7 +6,10 @@
   background: #ccc;
   font-family: 'Open Sans', sans-serif;
 
-	.gm-style-iw + div {display: none;}
+	//.gm-style-iw + div {display: none;}
 
-	.gm-style-iw> div {margin-left: 10px;}
+	.gm-style-iw> div {
+		padding: 5px 0;
+		margin-left: 10px;
+	}
 }
