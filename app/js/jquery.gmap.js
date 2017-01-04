@@ -61,9 +61,7 @@
 
         });
 
-      } else 
-
-      console.log('Geolocation is not supported for this Browser/OS version yet.');
+      } else console.log('Geolocation is not supported for this Browser/OS version yet.');     
 
     },
     _initMap = function ( data, userLocation ) {
@@ -82,12 +80,11 @@
                 ]
         };
 
-        _map = new google.maps.Map( _mapContainer[0], mapOption );
-
+      _map = new google.maps.Map( _mapContainer[0], mapOption );
 
     };
   
-    _constructor ();
+    _constructor();
   
   };
 
