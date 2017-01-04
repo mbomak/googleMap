@@ -1,7 +1,43 @@
 .controls {
 	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
+	top: 10px;
+	left: 50%;
+	height: 44px;
+	transform: translateX(-50%);
 	z-index: 100000;
+
+	&__car, &__bus, &__walk {
+		width: 44px;
+		height: 44px;
+		margin-right: 5px;
+		border: none;
+		border-radius: 50%;
+		z-index: 1000000;
+		cursor: pointer;
+		transition: box-shadow 0.3s;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&:hover {
+			box-shadow: 0 0 10px rgba(0,0,0,.5);
+		}
+	}
+
+	&__car {
+		background: url(../img/car.png) center center no-repeat;
+		background-size: cover;
+	}
+
+	&__bus {
+		background: url(../img/bus.png) center center no-repeat;
+		background-size: cover;
+	}
+
+	&__walk {
+		background: url(../img/walk.png) center center no-repeat;
+		background-size: cover;
+	}
+
 }
