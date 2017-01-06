@@ -90,13 +90,9 @@
 
       directionsService = new google.maps.DirectionsService;
 
-      directionsDisplay = new google.maps.DirectionsRenderer({
-        map: _map
-      })
+      directionsDisplay = new google.maps.DirectionsRenderer({map: _map});
 
-      _calculateDisplayRoute( directionsService,directionsDisplay,userLocation,finishPointLocation );
-
-      _addEvents();
+      _addEvents( markers,directionsService,directionsDisplay,userLocation,finishPointLocation );
 
     },
     _initMarkers = function( data,userLocation,finishPointLocation,markers ) {
@@ -121,17 +117,12 @@
                               directionsService,
                               directionsDisplay,
                               userLocation,
-                              finishPointLocation ) {
+                              finishPointLocation,
+                              directionsOptions ) {
 
-      directionsService.route({
+      directionsService.route( directionsOptions, function ( response,status ) {
 
-        origin: userLocation,
-        destination: finishPointLocation,
-        travelMode: google.maps.TravelMode.DRIVING
-
-      }, function (response,status ) {
-
-        if (status == google.maps.DirectionsStatus.OK) {
+        if ( status == google.maps.DirectionsStatus.OK ) {
 
           directionsDisplay.setDirections( response );
 
@@ -144,17 +135,56 @@
       });
 
     },
-    _addEvents = function () {
+    _addEvents = function ( markers,directionsService,directionsDisplay,userLocation,finishPointLocation ) {
 
       _buttons.on( 'click', function(){
 
-        var button = $( this );
+        var button = $( this ),
+            directionsOptions = {};
 
-        if ( button.hasClass('controls__car') ) {
+        if ( button.hasClass( 'controls__car' ) ) {
 
+          directionsOptions = {
+            origin: userLocation,
+            destination: finishPointLocation,
+            travelMode: google.maps.TravelMode.DRIVING
+          };
           
-          
+        } else if ( button.hasClass( 'controls__bus' ) ) {
+
+          directionsOptions = {
+            origin: userLocation,
+            destination: finishPointLocation,
+            travelMode: google.maps.TravelMode.TRANSIT,
+            transitOptions: {
+                modes: [google.maps.TransitMode.BUS],
+                routingPreference: google.maps.TransitRoutePreference.FEWER_TRANSFERS
+              }
+          };
+
+        } else if ( button.hasClass( 'controls__walk' ) ) {
+
+          directionsOptions = {
+            origin: userLocation,
+            destination: finishPointLocation,
+            travelMode: google.maps.TravelMode.WALKING
+          };
+
         }
+
+        for ( var i = 0; i < markers.length; i++ ) {
+
+          markers[i].setMap(null);
+
+        }
+
+        _calculateDisplayRoute( 
+                                directionsService,
+                                directionsDisplay,
+                                userLocation,
+                                finishPointLocation,
+                                directionsOptions
+                              );
 
       } );
 
