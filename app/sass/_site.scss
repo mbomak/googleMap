@@ -3,10 +3,19 @@
   position: relative;
   max-width: 100%;
   min-height: 100vh;
-  background: #777;
+  background: #ccc;
   font-family: 'Open Sans', sans-serif;
 
-	//.gm-style-iw + div {display: none;}
+	&__address {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translate(-50%);
+    width: 300px;
+    height: 20px;
+    background-color: #0f0;
+    z-index: 100000;
+  }
 
 	.gm-style-iw> div {
 		padding: 5px 0;

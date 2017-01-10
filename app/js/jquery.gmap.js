@@ -19,34 +19,15 @@
         _mapContainer = obj,
         _controls = $( '.controls' ),
         _buttons = _controls.children(),
-        _map,
-        _request = new XMLHttpRequest();
+        _map;
  
     //private methods
     var _constructor = function () {
 
-      google.maps.event.addDomListener( window, 'load',  _getData ); 
+      google.maps.event.addDomListener( window, 'load',  _getUserLocation ); 
 
     },
-    _getData = function() {
-
-      _request = $.ajax({
-        url: 'php/data.json',
-        type: 'GET',
-        dataType: 'json',
-        timeout: 20000,
-        success: function ( data ) {
-            _getUserLocation( data );
-        },
-        error: function ( XMLHttpRequest ) {
-            if( XMLHttpRequest.statusText != 'abort' ) {
-                console.log( 'Error!' );
-            }
-        }
-      });
-
-    },
-    _getUserLocation = function (data) {
+    _getUserLocation = function () {
 
       if ( navigator.geolocation ) {
 
@@ -57,17 +38,16 @@
             lng: position.coords.longitude
           };
 
-          _initMap( data, userLocation );
+          _initMap( userLocation );
 
         });
 
       } else console.log('Geolocation is not supported for this Browser/OS version yet.');     
 
     },
-    _initMap = function ( data, userLocation ) {
+    _initMap = function ( userLocation ) {
 
       var mapOption = {},
-          finishPointLocation = data[0].latLng,
           directionsService,
           directionsDisplay,
           markers= [];
@@ -86,31 +66,25 @@
 
       _map = new google.maps.Map( _mapContainer[0], mapOption );
 
-      _initMarkers( data,userLocation,finishPointLocation,markers );
+      _initMarkers( userLocation,markers );
 
       directionsService = new google.maps.DirectionsService;
 
       directionsDisplay = new google.maps.DirectionsRenderer({map: _map});
 
-      _addEvents( markers,directionsService,directionsDisplay,userLocation,finishPointLocation );
+      _addEvents( markers,directionsService,directionsDisplay,userLocation );
 
     },
-    _initMarkers = function( data,userLocation,finishPointLocation,markers ) {
+    _initMarkers = function( userLocation,markers ) {
 
       var markerStart = new google.maps.Marker({
             position: userLocation,
             title: 'Start point',
             label: 'S',
             map: _map
-          }),
-          markerFinish = new google.maps.Marker({
-            position: finishPointLocation,
-            title: "Finish point",
-            label: "F",
-            map: _map
           }); 
 
-      markers.push( markerStart,markerFinish ); 
+      markers.push( markerStart ); 
 
     },
     _calculateDisplayRoute = function ( 
@@ -146,7 +120,7 @@
 
           directionsOptions = {
             origin: userLocation,
-            destination: finishPointLocation,
+            destination: 'кривой рог кропивницкого 87 80',
             travelMode: google.maps.TravelMode.DRIVING
           };
           
@@ -170,13 +144,9 @@
             travelMode: google.maps.TravelMode.WALKING
           };
 
-        }
+        }      
 
-        for ( var i = 0; i < markers.length; i++ ) {
-
-          markers[i].setMap(null);
-
-        }
+        markers[0].setMap(null);
 
         _calculateDisplayRoute( 
                                 directionsService,
