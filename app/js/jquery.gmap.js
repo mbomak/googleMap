@@ -19,6 +19,7 @@
         _mapContainer = obj,
         _controls = $( '.controls' ),
         _buttons = _controls.children(),
+        _field = $('.site__address'),
         _map;
  
     //private methods
@@ -91,7 +92,6 @@
                               directionsService,
                               directionsDisplay,
                               userLocation,
-                              finishPointLocation,
                               directionsOptions ) {
 
       directionsService.route( directionsOptions, function ( response,status ) {
@@ -109,18 +109,21 @@
       });
 
     },
-    _addEvents = function ( markers,directionsService,directionsDisplay,userLocation,finishPointLocation ) {
+    _addEvents = function ( markers,directionsService,directionsDisplay,userLocation ) {
 
       _buttons.on( 'click', function(){
 
         var button = $( this ),
+            address = _field.val(),
             directionsOptions = {};
+
+        if ( address == '') alert('please, input your address!');
 
         if ( button.hasClass( 'controls__car' ) ) {
 
           directionsOptions = {
             origin: userLocation,
-            destination: 'кривой рог кропивницкого 87 80',
+            destination: address,
             travelMode: google.maps.TravelMode.DRIVING
           };
           
@@ -128,7 +131,7 @@
 
           directionsOptions = {
             origin: userLocation,
-            destination: finishPointLocation,
+            destination: address,
             travelMode: google.maps.TravelMode.TRANSIT,
             transitOptions: {
                 modes: [google.maps.TransitMode.BUS],
@@ -140,7 +143,7 @@
 
           directionsOptions = {
             origin: userLocation,
-            destination: finishPointLocation,
+            destination: address,
             travelMode: google.maps.TravelMode.WALKING
           };
 
@@ -152,7 +155,6 @@
                                 directionsService,
                                 directionsDisplay,
                                 userLocation,
-                                finishPointLocation,
                                 directionsOptions
                               );
 

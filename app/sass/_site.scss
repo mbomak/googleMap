@@ -8,13 +8,44 @@
 
 	&__address {
     position: absolute;
-    top: 5px;
+    top: 15px;
     left: 50%;
     transform: translate(-50%);
     width: 300px;
-    height: 20px;
-    background-color: #0f0;
+    height: 25px;
+    padding: 10px !important;
+    border: 1px solid #ccc;
     z-index: 100000;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #777;
+      &::-webkit-input-placeholder {
+        opacity: 0;
+      }
+      &:-moz-placeholder {
+        opacity: 0;
+      }
+      &.placeholder {
+        opacity: 0;
+      }
+    }
+
+    &::-webkit-input-placeholder {
+      opacity: 1;
+      color: #ccc;
+      transition: opacity 0.3s;
+    }
+    &:-moz-placeholder {
+      opacity: 1;
+      color: #ccc;
+      transition: opacity 0.3s;
+    }
+    &.placeholder {
+      opacity: 1;
+      color: #ccc;
+      transition: opacity 0.3s;
+    }
   }
 
 	.gm-style-iw> div {
